@@ -3,7 +3,20 @@ const router = express.Router()
 const Venta = require("./models")
 
 
-router.post("/", async (req, res) => {
+require('dotenv').config();
+
+const TOKEN_SECRETO = process.env.TOKEN_SECRETO;
+
+function requireToken(req, res, next) {
+    const token = req.headers["Authorization"];
+    if (token !== `${TOKEN_SECRETO}`) {
+        return res.status(403).json({ error: "No autorizado" });
+    }
+    next();
+}
+
+
+router.post("/" , requireToken, async (req, res) => {
 
     const venta = new Venta(req.body)
     await venta.save()
@@ -13,7 +26,7 @@ router.post("/", async (req, res) => {
     })
 })
 
-router.get("/", async (req, res) => {
+router.get("/" , requireToken, async (req, res) => {
 
     const ventas = await Venta.find()
 
@@ -21,7 +34,7 @@ router.get("/", async (req, res) => {
 })
 
 
-router.get("/:id", async (req, res) => {
+router.get("/:id" , requireToken, async (req, res) => {
 
     const venta = await Venta.findById(req.params.id)
 
@@ -29,7 +42,7 @@ router.get("/:id", async (req, res) => {
 })
 
 
-router.put("/:id", async (req, res) => {
+router.put("/:id" , requireToken, async (req, res) => {
 
     const venta = await Venta.findByIdAndUpdate(
         req.params.id,
@@ -40,7 +53,7 @@ router.put("/:id", async (req, res) => {
 })
 
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id" , requireToken, async (req, res) => {
 
     await Venta.findByIdAndDelete(req.params.id)
 
@@ -49,7 +62,7 @@ router.delete("/:id", async (req, res) => {
     })
 })
 
-router.post("/usuario", async (req, res) => {
+router.post("/usuario" , requireToken, async (req, res) => {
     const usuario_id = req.body.usuario_id;
 
     const ventas_usuario = await Venta.find({

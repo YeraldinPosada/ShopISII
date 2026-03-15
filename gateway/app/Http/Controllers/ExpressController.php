@@ -10,7 +10,7 @@ class ExpressController extends Controller
 {
     public function traer_ventas(){
         $response = Http::withHeaders([
-            'Authorization' => env("TOKEN_APIS"),
+            'Authorization' => env("TOKEN"),
         ])->get(env("ENDPOINT_EXPRESS"));
 
         return [
@@ -24,7 +24,7 @@ class ExpressController extends Controller
 
         //Llamarse a un metodo en flask que valide si el producto existe y si existe ese stock
         $response_stock = Http::withHeaders([
-            'Authorization' => env("TOKEN_APIS")
+            'Authorization' => env("TOKEN")
         ])->get(env("ENDPOINT_FLASK_VALIDAR")."/".$request->producto_id);
 
         if($response_stock->status() == 404){
@@ -36,7 +36,7 @@ class ExpressController extends Controller
         }
 
         $response = Http::withHeaders([
-            'Authorization' => env("TOKEN_APIS"),
+            'Authorization' => env("TOKEN"),
         ])->post(env("ENDPOINT_EXPRESS"),[
             "producto_id"=> $request->producto_id,
             "cantidad" => $request->cantidad,
@@ -46,7 +46,7 @@ class ExpressController extends Controller
 
 
         $response_resta = Http::withHeaders([
-            'Authorization' => env("TOKEN_APIS")
+            'Authorization' => env("TOKEN")
         ])->put(env("ENDPOINT_FLASK_RESTA")."/".$request->producto_id,[
             "cantidad" => $request->cantidad
         ]);
@@ -63,7 +63,7 @@ class ExpressController extends Controller
         $user = Auth::user();
 
         $response = Http::withHeaders([
-            'Authorization' => env("TOKEN_APIS"),
+            'Authorization' => env("TOKEN"),
         ])->put(env("ENDPOINT_EXPRESS")."/".$id, [
             "producto_id"=> $request->producto_id,
             "cantidad" => $request->cantidad,
@@ -80,7 +80,7 @@ class ExpressController extends Controller
 
     public function eliminar_venta($id){
         $response = Http::withHeaders([
-            'Authorization' => env("TOKEN_APIS"),
+            'Authorization' => env("TOKEN"),
         ])->delete(env("ENDPOINT_EXPRESS")."/".$id);
 
         return [
@@ -92,7 +92,7 @@ class ExpressController extends Controller
     public function traer_ventas_usuario(){
         $user = Auth::user();
         $response = Http::withHeaders([
-            'Authorization' => env("TOKEN_APIS"),
+            'Authorization' => env("TOKEN"),
         ])->post(env("ENDPOINT_EXPRESS_VENTAS"), [
             "usuario_id" =>  $user->id
         ]);

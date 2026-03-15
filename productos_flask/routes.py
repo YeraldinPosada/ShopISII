@@ -7,13 +7,20 @@ import os
 
 load_dotenv()
 
-TOKEN_SECRETO = os.getenv("TOKEN_SECRETO")
-
+def require_token(f):
+    @wraps(f)
+    def decorate(*args, **kwargs):
+        token = request.headers.get("Authorization")
+        if token!= os.getenv("TOKEN"):
+            return jsonify({"error": "Usuario no autorizado"})
+        return f(*args, **kwargs)
+    return decorate
 
 
 def register_routes(app):
     
     @app.route("/api/productos", methods=['POST'])
+    @require_token
     def post_productos():
         data = request.get_json()
         product = {
@@ -27,6 +34,7 @@ def register_routes(app):
         return jsonify({"mensaje" : "Producto agregado"})
     
     @app.route("/api/productos", methods=['GET'])
+    @require_token
     def get_productos():
         products = db.collection("products").stream()
         return jsonify([
@@ -39,6 +47,7 @@ def register_routes(app):
     for p in products
 ])
     @app.route("/api/productos/<id>", methods=['PUT'])
+    @require_token
     def update_producto(id):
 
         data = request.get_json()
@@ -53,12 +62,14 @@ def register_routes(app):
         return jsonify({"mensaje": "Producto actualizado"})
 
     @app.route("/api/productos/<id>", methods=['DELETE'])
+    @require_token
     def delete_producto(id):
         db.collection("products").document(id).delete()
         return jsonify({"mensaje": "Producto eliminado"})
     
 
     @app.route("/api/producto_validar/<id>", methods=['GET'])
+    @require_token
     def  validar_producto_stock(id):
         producto = db.collection("products").document(id).get()
         if not producto.exists:
@@ -67,6 +78,7 @@ def register_routes(app):
         return jsonify({"stock": producto.get("stock")})
     
     @app.route("/api/stock_resta/<id>", methods=['PUT'])
+    @require_token
     def restar_stock(id):
         data = request.get_json()
         cantidad = data["cantidad"]

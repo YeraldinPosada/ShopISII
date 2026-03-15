@@ -9,7 +9,7 @@ class FlaskController extends Controller
 {
     public function traer_productos(){
         $response = Http::withHeaders([
-        'Authorization' => env("TOKEN_APIS"),
+        'Authorization' => env("TOKEN"),
         ])->get(env("ENDPOINT_FLASK"));
         return [
         'status' => $response->status(),
@@ -19,7 +19,7 @@ class FlaskController extends Controller
 
     public function crear_producto(Request $request){
         $response = Http:: withHeaders([
-        'Authorization' => env("TOKEN_APIS"),
+        'Authorization' => env("TOKEN"),
         ])->post(env("ENDPOINT_FLASK"),[
             "name"=> $request->name,
             "price" => $request->price,
@@ -35,7 +35,7 @@ class FlaskController extends Controller
 
     public function actualizar_producto(Request $request, $id){
     $response = Http::withHeaders([
-        'Authorization' => env("TOKEN_APIS"),
+        'Authorization' => env("TOKEN"),
     ])->put(env("ENDPOINT_FLASK")."/".$id, [
         "name" => $request->name,
         "price" => $request->price,
@@ -52,7 +52,7 @@ class FlaskController extends Controller
     public function eliminar_producto($id){
 
     $response = Http::withHeaders([
-        'Authorization' => env("TOKEN_APIS"),
+        'Authorization' => env("TOKEN"),
     ])->delete(env("ENDPOINT_FLASK")."/".$id);
 
     return [
