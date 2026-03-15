@@ -1,0 +1,82 @@
+<svg width="100%" viewBox="0 0 680 520" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#888780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <style>
+      .bg-purple { fill: #3C3489; stroke: #AFA9EC; }
+      .bg-teal   { fill: #085041; stroke: #5DCAA5; }
+      .bg-coral  { fill: #712B13; stroke: #F0997B; }
+      .bg-amber  { fill: #633806; stroke: #EF9F27; }
+      .bg-green  { fill: #27500A; stroke: #97C459; }
+      .bg-gray   { fill: #444441; stroke: #B4B2A9; }
+      .bg-red    { fill: #791F1F; stroke: #F09595; }
+      .t-light   { fill: #D3D1C7; font-family: sans-serif; font-size: 14px; font-weight: 500; }
+      .t-sub     { fill: #B4B2A9; font-family: sans-serif; font-size: 12px; }
+      .arr       { stroke: #888780; stroke-width: 1.2; fill: none; }
+      rect       { stroke-width: 0.5; }
+      .bg-bg     { fill: #2C2C2A; }
+    </style>
+  </defs>
+
+  <rect width="680" height="520" fill="#1e1e1c" rx="12"/>
+
+  <!-- CLIENTE -->
+  <rect class="bg-gray" x="240" y="20" width="200" height="52" rx="8"/>
+  <text class="t-light" x="340" y="42" text-anchor="middle" dominant-baseline="central">Cliente / Browser</text>
+  <text class="t-sub"   x="340" y="60" text-anchor="middle" dominant-baseline="central">Web o móvil</text>
+
+  <!-- Flecha cliente -> gateway -->
+  <line x1="340" y1="72" x2="340" y2="108" class="arr" marker-end="url(#arrow)"/>
+  <text class="t-sub" x="356" y="93" dominant-baseline="central">JWT</text>
+
+  <!-- GATEWAY -->
+  <rect class="bg-purple" x="120" y="108" width="440" height="80" rx="8"/>
+  <text class="t-light" x="340" y="135" text-anchor="middle" dominant-baseline="central">Gateway — Laravel (PHP)</text>
+  <text class="t-sub"   x="340" y="157" text-anchor="middle" dominant-baseline="central">Autenticación JWT · Enrutamiento · MICROSERVICE_TOKEN</text>
+
+  <!-- Flechas gateway -> microservicios -->
+  <path d="M240 188 L180 248" class="arr" marker-end="url(#arrow)"/>
+  <text class="t-sub" x="185" y="222" text-anchor="middle">Token interno</text>
+
+  <path d="M440 188 L500 248" class="arr" marker-end="url(#arrow)"/>
+  <text class="t-sub" x="497" y="222" text-anchor="middle">Token interno</text>
+
+  <!-- PRODUCTOS FLASK -->
+  <rect class="bg-teal" x="60" y="248" width="240" height="80" rx="8"/>
+  <text class="t-light" x="180" y="272" text-anchor="middle" dominant-baseline="central">Productos — Flask</text>
+  <text class="t-sub"   x="180" y="292" text-anchor="middle" dominant-baseline="central">CRUD de productos</text>
+  <text class="t-sub"   x="180" y="310" text-anchor="middle" dominant-baseline="central">Python · puerto 5000</text>
+
+  <!-- VENTAS EXPRESS -->
+  <rect class="bg-coral" x="380" y="248" width="240" height="80" rx="8"/>
+  <text class="t-light" x="500" y="272" text-anchor="middle" dominant-baseline="central">Ventas — Express</text>
+  <text class="t-sub"   x="500" y="292" text-anchor="middle" dominant-baseline="central">Registro de ventas</text>
+  <text class="t-sub"   x="500" y="310" text-anchor="middle" dominant-baseline="central">Node.js · puerto 3000</text>
+
+  <!-- Flechas hacia bases de datos -->
+  <line x1="180" y1="328" x2="180" y2="388" class="arr" marker-end="url(#arrow)"/>
+  <line x1="500" y1="328" x2="500" y2="388" class="arr" marker-end="url(#arrow)"/>
+
+  <!-- FIREBASE -->
+  <rect class="bg-amber" x="60" y="388" width="240" height="56" rx="8"/>
+  <text class="t-light" x="180" y="411" text-anchor="middle" dominant-baseline="central">Firebase Firestore</text>
+  <text class="t-sub"   x="180" y="429" text-anchor="middle" dominant-baseline="central">Base de datos de productos</text>
+
+  <!-- MONGODB -->
+  <rect class="bg-green" x="380" y="388" width="240" height="56" rx="8"/>
+  <text class="t-light" x="500" y="411" text-anchor="middle" dominant-baseline="central">MongoDB</text>
+  <text class="t-sub"   x="500" y="429" text-anchor="middle" dominant-baseline="central">Base de datos de ventas</text>
+
+  <!-- Leyenda -->
+  <rect class="bg-purple" x="40"  y="468" width="12" height="12" rx="3"/>
+  <text class="t-sub" x="58"  y="478" dominant-baseline="central">Gateway</text>
+  <rect class="bg-teal"   x="140" y="468" width="12" height="12" rx="3"/>
+  <text class="t-sub" x="158" y="478" dominant-baseline="central">Productos</text>
+  <rect class="bg-coral"  x="255" y="468" width="12" height="12" rx="3"/>
+  <text class="t-sub" x="273" y="478" dominant-baseline="central">Ventas</text>
+  <rect class="bg-amber"  x="355" y="468" width="12" height="12" rx="3"/>
+  <text class="t-sub" x="373" y="478" dominant-baseline="central">Firebase</text>
+  <rect class="bg-green"  x="460" y="468" width="12" height="12" rx="3"/>
+  <text class="t-sub" x="478" y="478" dominant-baseline="central">MongoDB</text>
+</svg>
