@@ -88,4 +88,18 @@ class ExpressController extends Controller
             'body' => $response->body(),
         ];
     }
+
+    public function traer_ventas_usuario(){
+        $user = Auth::user();
+        $response = Http::withHeaders([
+            'Authorization' => env("TOKEN_APIS"),
+        ])->post(env("ENDPOINT_EXPRESS_VENTAS"), [
+            "usuario_id" =>  $user->id
+        ]);
+
+        return [
+            'status' => $response->status(),
+            'body' => $response->json(),
+        ];
+}
 }

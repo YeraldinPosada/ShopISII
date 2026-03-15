@@ -49,4 +49,14 @@ router.delete("/:id", async (req, res) => {
     })
 })
 
+router.post("/usuario", async (req, res) => {
+    const usuario_id = req.body.usuario_id;
+
+    const ventas_usuario = await Venta.find({
+        usuario_id: usuario_id
+    });
+
+    res.json(ventas_usuario);
+})
+
 module.exports = router

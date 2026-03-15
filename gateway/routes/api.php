@@ -28,4 +28,5 @@ Route::get('/ventas', [ExpressController::class,'traer_ventas']);
 Route::post('/ventas', [ExpressController::class,'crear_venta'])->middleware("auth:api");
 Route::put('/ventas/{id}', [ExpressController::class,'actualizar_venta'])->middleware("auth:api");
 Route::delete('/ventas/{id}', [ExpressController::class,'eliminar_venta']);
+Route::post('/ventas_usuario/', [ExpressController::class,'traer_ventas_usuario'])->middleware("auth:api");
 
